@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Customer Support Agent System - Documentation</title>
+    <style>
+        /* Modern Design System & Typography */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --primary: #4F46E5;
+            --primary-dark: #3730A3;
+            --secondary: #10B981;
+            --accent: #8B5CF6;
+            --text-main: #1F2937;
+            --text-muted: #4B5563;
+            --bg-light: #F9FAFB;
+            --border: #E5E7EB;
+            --code-bg: #F3F4F6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text-main);
+            line-height: 1.6;
+            background: #ffffff;
+            font-size: 16px;
+        }
+
+        /* Container & Grid layout */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Cover Page styling */
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 90vh;
+            padding: 60px 40px;
+            border-bottom: 2px solid var(--border);
+            page-break-after: always;
+        }
+
+        .cover-badge {
+            display: inline-block;
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 6px 12px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 24px;
+            align-self: flex-start;
+        }
+
+        .cover-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            color: #111827;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .cover-subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-bottom: 48px;
+            max-width: 600px;
+        }
+
+        .cover-meta {
+            margin-top: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            border-top: 1px solid var(--border);
+            padding-top: 30px;
+        }
+
+        .meta-item {
+            font-size: 0.9rem;
+        }
+
+        .meta-label {
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .meta-val {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* Section Headings */
+        h1, h2, h3, h4 {
+            color: #111827;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-top: 48px;
+            margin-bottom: 24px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 8px;
+            page-break-before: always;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            color: var(--primary-dark);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: var(--text-muted);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 24px;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Code blocks */
+        pre {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            overflow-x: auto;
+            margin-bottom: 24px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #D97706;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* Custom boxes and alerts */
+        .callout {
+            background: var(--bg-light);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 24px;
+        }
+
+        .callout-title {
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        /* Grid components */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .feature-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            background: #ffffff;
+        }
+
+        .feature-card h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        /* Diagrams */
+        .diagram-container {
+            border: 1px solid var(--border);
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 24px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--bg-light);
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* Page Breaks and Print specific rules */
+        @media print {
+            body {
+                font-size: 12pt;
+                color: #000000;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            h1 {
+                page-break-before: always;
+            }
+
+            pre, blockquote, table, img {
+                page-break-inside: avoid;
+            }
+
+            a {
+                text-decoration: none;
+                color: #000;
+            }
+
+            a::after {
+                content: " (" attr(href) ")";
+                font-size: 90%;
+                color: #666;
+            }
+
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Cover Page -->
+    <div class="cover-page">
+        <span class="cover-badge">Technical Portfolio Documentation</span>
+        <h1 class="cover-title">AI-Powered Customer Support Agent System</h1>
+        <p class="cover-subtitle">A full-stack, multi-agent customer support simulation orchestrating collaborative AI workflows with an interactive React dashboard.</p>
+        
+        <div class="cover-meta">
+            <div class="meta-item">
+                <div class="meta-label">Architecture</div>
+                <div class="meta-val">Triage-and-Route (Multi-Agent)</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Core Technology Stack</div>
+                <div class="meta-val">React, Express, OpenAI Agents SDK, TypeScript</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Date Generated</div>
+                <div class="meta-val">July 2026</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Project Category</div>
+                <div class="meta-val">Agentic AI / AI Agents</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 1: Executive Summary -->
+    <h1>1. Executive Summary</h1>
+    <p>Modern customer support applications require robust, contextual, and transactional capabilities. Traditional single-prompt LLM interactions often suffer from context dilution, command confusion, and high token costs. This project addresses these challenges by implementing a stateful, multi-agent orchestrator utilizing OpenAI's experimental <code>@openai/agents</code> SDK.</p>
+    
+    <div class="callout">
+        <div class="callout-title">Core Objective</div>
+        <p>To design a collaborative team of specialized AI agents that can seamlessly hand off customer conversations to one another, query a product catalog, validate customer security credentials, and perform transactional actions (order cancellations and refunds) while displaying live system logs to the developer.</p>
+    </div>
+
+    <h2>Architecture Overview</h2>
+    <p>The system is split into two major components:</p>
+    <ul>
+        <li><strong>Express + TypeScript Backend:</strong> Hosts the multi-agent routing loop, hooks up Zod-schema-validated database tools, maintains session states, and handles CORS communication.</li>
+        <li><strong>React + Vite Frontend:</strong> A high-performance, dark-themed dashboard that visualizes active agent state shifts, executes mock database queries, and renders developer-friendly tool execution logs.</li>
+    </ul>
+
+    <!-- Section 2: Agent Architecture -->
+    <h1>2. Agentic AI & Routing Architecture</h1>
+    <p>The application implements the industry-standard <strong>Triage & Specialist pattern</strong>. The following diagram illustrates the routing and tool execution flow of the system:</p>
+
+    <!-- ASCII Flowchart for Print Cleanliness -->
+    <pre>
++-------------------------------------------------------------+
+|                        User Input                           |
++-------------------------------------------------------------+
+                               |
+                               v
++-------------------------------------------------------------+
+|            TriageAgent (Main Entry & Classify)              |
++-------------------------------------------------------------+
+          /                                         \
+  (Product query)                             (Order action)
+        /                                             \
+       v                                               v
++--------------------------+               +--------------------------+
+|       CatalogAgent       |               |     OrderRefundAgent     |
+|  (Product Specialist)    |               |  (Transaction Specialist)|
++--------------------------+               +--------------------------+
+  - searchProducts()                         - getOrderStatus()
+  - getProductDetails()                      - cancelOrder()
+                                             - processRefund()
+       \                                               /
+        \---> [ Handoff back to TriageAgent ] <-------/
+    </pre>
+
+    <h2>The Specialist Agent Team</h2>
+    
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>TriageAgent</h3>
+            <p><strong>Responsibility:</strong> Act as the primary dispatcher. Greets the customer, answers general questions, and classifies incoming statements to route them to the correct specialist.</p>
+            <p><strong>Model:</strong> <code>gpt-4o-mini</code></p>
+        </div>
+        <div class="feature-card">
+            <h3>CatalogAgent</h3>
+            <p><strong>Responsibility:</strong> Serves as the inventory expert. Searches items in stock, compares categories, and retrieves specific descriptions.</p>
+            <p><strong>Model:</strong> <code>gpt-4o-mini</code></p>
+        </div>
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-card" style="grid-column: span 2;">
+            <h3>OrderRefundAgent</h3>
+            <p><strong>Responsibility:</strong> Handles tracking, order cancellations, and refunds. This agent enforces strict validation rules: it will refuse to run any database query until the user explicitly supplies <strong>both</strong> their Order ID and customer email address.</p>
+            <p><strong>Model:</strong> <code>gpt-4o-mini</code></p>
+        </div>
+    </div>
+
+    <!-- Section 3: Tool and Database Capabilities -->
+    <h1>3. Autonomous Tools & Database Integration</h1>
+    <p>Each agent is given specific toolsets using programmatic schemas. The schemas enforce parameter parameters at compile-time and run-time using <code>Zod</code> schemas. If an agent tries to call a tool, it must format the parameters exactly according to the schema constraints.</p>
+
+    <h2>Available Database Operations</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Agent</th>
+                <th>Tool Name</th>
+                <th>Parameters</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>CatalogAgent</td>
+                <td><code>searchProducts</code></td>
+                <td><code>query: string</code></td>
+                <td>Filter catalog items by name, category, or descriptions.</td>
+            </tr>
+            <tr>
+                <td>CatalogAgent</td>
+                <td><code>getProductDetails</code></td>
+                <td><code>productId: string</code></td>
+                <td>Retrieves comprehensive specifications and current stock count.</td>
+            </tr>
+            <tr>
+                <td>OrderRefundAgent</td>
+                <td><code>getOrderStatus</code></td>
+                <td><code>orderId: string, email: string</code></td>
+                <td>Check status, tracking code, and details of an order.</td>
+            </tr>
+            <tr>
+                <td>OrderRefundAgent</td>
+                <td><code>cancelOrder</code></td>
+                <td><code>orderId: string, email: string</code></td>
+                <td>Cancels an order if it hasn't shipped or delivered.</td>
+            </tr>
+            <tr>
+                <td>OrderRefundAgent</td>
+                <td><code>processRefund</code></td>
+                <td><code>orderId: string, email: string</code></td>
+                <td>Approves and executes a financial refund on delivered/cancelled orders.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Section 4: Frontend UI/UX Design -->
+    <h1>4. Frontend Dashboard & Developer Tool</h1>
+    <p>A key aspect of this project is the interactive user interface, designed to make Agentic AI operations transparent and easy to debug.</p>
+
+    <h2>Key UI Elements:</h2>
+    <ul>
+        <li><strong>Ambient Glow State Indicator:</strong> The header glow transitions smoothly between <strong>blue (Triage)</strong>, <strong>green (Catalog)</strong>, and <strong>purple (Order & Refund)</strong> to indicate which agent currently has control of the session.</li>
+        <li><strong>Real-time Mock Database Mirror:</strong> The left panel serves as a live window into the database. When the Order & Refund agent cancels an order, the status instantly transitions from <code>Processing</code> to <code>Cancelled</code> in the UI.</li>
+        <li><strong>Tool Execution Log Feed:</strong> Renders system calls in the chat feed. Developers can inspect exact JSON payloads being exchanged between the AI models and the server tools.</li>
+    </ul>
+
+    <!-- Section 5: Setup & Verification -->
+    <h1>5. Installation & Run Guide</h1>
+    <p>Follow these steps to run the complete environment locally:</p>
+
+    <h2>1. Repository Setup & Git Ignore</h2>
+    <p>A root-level <code>.gitignore</code> is configured to prevent dependency folders, builds, and keys from leaking into version control:</p>
+    <pre>
+# Exclude node modules
+node_modules/
+**/node_modules/
+
+# Exclude compilation and builds
+dist/
+**/dist/
+
+# Exclude secrets
+.env
+**/.env
+    </pre>
+
+    <h2>2. Backend Server Launch</h2>
+    <pre>
+cd backend_clientagents
+npm install
+cp .env.example .env  # Add your OPENAI_API_KEY
+npm run dev
+    </pre>
+    <p>The Express server will start up on <code>http://localhost:5000</code>.</p>
+
+    <h2>3. Frontend Server Launch</h2>
+    <pre>
+cd frontend_react
+npm install
+npm run dev
+    </pre>
+    <p>Open <code>http://localhost:5173</code> in your browser to interact with the project.</p>
+
+</div>
+
+</body>
+</html>

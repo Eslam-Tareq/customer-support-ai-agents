@@ -39,6 +39,8 @@ interface ChatMessage {
   toolOutput?: string;
 }
 
+const API_BASE_URL = (import.meta.env.VITE_API_URL || 'https://customer-support-ai-agents-backend-theta.vercel.app').replace(/\/$/, '');
+
 export default function App() {
   const [products, setProducts] = useState<Product[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
@@ -71,11 +73,11 @@ export default function App() {
   // Fetch product catalog and order database
   const fetchStoreData = async () => {
     try {
-      const prodRes = await fetch('http://localhost:5000/api/products');
+      const prodRes = await fetch(`${API_BASE_URL}/api/products`);
       const prodData = await prodRes.json();
       setProducts(prodData);
 
-      const orderRes = await fetch('http://localhost:5000/api/orders');
+      const orderRes = await fetch(`${API_BASE_URL}/api/orders`);
       const orderData = await orderRes.json();
       setOrders(orderData);
     } catch (err) {
@@ -172,7 +174,7 @@ export default function App() {
     setChatMessages(prev => [...prev, tempUserMsg]);
 
     try {
-      const res = await fetch('http://localhost:5000/api/chat', {
+      const res = await fetch(`${API_BASE_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sessionId, message: userMessageText })
@@ -210,7 +212,7 @@ export default function App() {
     if (window.confirm('Are you sure you want to clear chat history and reset agent conversation?')) {
       setLoading(true);
       try {
-        await fetch('http://localhost:5000/api/chat/reset', {
+        await fetch(`${API_BASE_URL}/api/chat/reset`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ sessionId })
