@@ -62,9 +62,65 @@ export default function Docs() {
         </ul>
       </section>
 
-      {/* Section 2: Agent Architecture */}
+      {/* Section 2: Core Analysis - What it Does, How it Works & Benefits */}
       <section>
-        <h1>2. Agentic AI & Routing Architecture</h1>
+        <h1>2. Project Overview: What it Does, How it Works & Benefits</h1>
+        
+        <h2>2.1 What the Project Does</h2>
+        <p>
+          At its core, this project is an <strong>intelligent customer support desk automation platform</strong>. It acts as an automated virtual support team for a digital storefront called <em>Apex Store</em>.
+        </p>
+        <p>
+          Unlike standard conversational chatbots that simply generate static text responses, this system is capable of executing live transactions:
+        </p>
+        <ul>
+          <li><strong>Product Catalog Discovery:</strong> Allows customers to search and view technical specifications of items in stock (e.g. Apex headphones, mechanical keyboards, power banks) via natural language.</li>
+          <li><strong>Transactional Operations:</strong> Enables customers to track packages, cancel orders that haven't shipped, and claim instant financial refunds on eligible deliveries.</li>
+          <li><strong>Real-time State Mirroring:</strong> Displays a live panel reflecting the in-memory database state, showing the immediate side-effect of any AI agent action.</li>
+        </ul>
+
+        <h2>2.2 How the Project Works</h2>
+        <p>
+          The system implements a stateful agentic routing pattern that manages user turns and coordinates specialists. The execution cycle progresses as follows:
+        </p>
+        <ol>
+          <li>
+            <strong>Session Tracking:</strong> When a user starts the app, a persistent <code>sessionId</code> is generated. The frontend uses this ID to communicate with the backend, ensuring their chat history remains intact across refreshes.
+          </li>
+          <li>
+            <strong>Intent Parsing & Triage:</strong> The user's query is routed to the <code>TriageAgent</code>. The agent inspects the message. If the user asks for catalog details, the TriageAgent executes a handoff to the <code>CatalogAgent</code>. If the user wants to cancel or check an order, it routes to the <code>OrderRefundAgent</code>.
+          </li>
+          <li>
+            <strong>Contextual Handoffs:</strong> The backend uses OpenAI's experimental <code>run()</code> loop. When an agent requests a transfer, the SDK updates the active agent field and delegates the next prompt processing turn to the target agent, carrying over the entire chat history.
+          </li>
+          <li>
+            <strong>Secure Tool Execution:</strong> If the active agent decides to call a database tool (e.g., <code>cancelOrder</code>), it formats a JSON query validated by a Zod schema. The backend runs the corresponding Javascript handler on the mock database.
+          </li>
+          <li>
+            <strong>Synchronized Updates:</strong> The API returns the agent's message alongside the updated products and orders arrays. The React frontend updates its local states, triggering a re-render of the live database view.
+          </li>
+        </ol>
+
+        <h2>2.3 Key Benefits of the Architecture</h2>
+        <ul>
+          <li>
+            <strong>Token Efficiency & Cost Savings:</strong> By partitioning instructions between specialists (Triage, Catalog, Order), each model run only loads prompts relevant to the active task. This minimizes token usage and drastically reduces API costs.
+          </li>
+          <li>
+            <strong>Enhanced Security & Safety:</strong> Specialist agents only have access to their designated tools. The <code>CatalogAgent</code> cannot modify orders, and the <code>OrderRefundAgent</code> cannot query catalog stocks. This "Principle of Least Privilege" protects the database from accidental damage.
+          </li>
+          <li>
+            <strong>Improved Accuracy & Lower Hallucinations:</strong> Guardrails are hardcoded into the agent configurations. For example, the <code>OrderRefundAgent</code> will refuse to execute any transaction until it collects and validates both the customer's email and order ID, preventing fraudulent cancellations.
+          </li>
+          <li>
+            <strong>Modular Scalability:</strong> The architecture is highly extensible. Adding support for new business functions (like shipping calculators, user accounts, or active human support handoffs) is as simple as adding a new Agent instance and attaching it to the triage handoff list.
+          </li>
+        </ul>
+      </section>
+
+      {/* Section 3: Agent Architecture */}
+      <section>
+        <h1>3. Agentic AI & Routing Architecture</h1>
         <p>
           The application implements the industry-standard <strong>Triage & Specialist pattern</strong>. The following diagram illustrates the routing and tool execution flow of the system:
         </p>
@@ -122,9 +178,9 @@ export default function Docs() {
         </div>
       </section>
 
-      {/* Section 3: Tools & DB */}
+      {/* Section 4: Tools & DB */}
       <section>
-        <h1>3. Autonomous Tools & Database Integration</h1>
+        <h1>4. Autonomous Tools & Database Integration</h1>
         <p>
           Each agent is given specific toolsets using programmatic schemas. The schemas enforce parameter parameters at compile-time and run-time using <code>Zod</code> schemas. If an agent tries to call a tool, it must format the parameters exactly according to the schema constraints.
         </p>
@@ -176,9 +232,9 @@ export default function Docs() {
         </div>
       </section>
 
-      {/* Section 4: Frontend UI/UX Design */}
+      {/* Section 5: Frontend UI/UX Design */}
       <section>
-        <h1>4. Frontend Dashboard & Developer Tool</h1>
+        <h1>5. Frontend Dashboard & Developer Tool</h1>
         <p>
           A key aspect of this project is the interactive user interface, designed to make Agentic AI operations transparent and easy to debug.
         </p>
@@ -197,9 +253,9 @@ export default function Docs() {
         </ul>
       </section>
 
-      {/* Section 5: Setup & Verification */}
+      {/* Section 6: Setup & Verification */}
       <section>
-        <h1>5. Installation & Run Guide</h1>
+        <h1>6. Installation & Run Guide</h1>
         <p>Follow these steps to run the complete environment locally:</p>
 
         <h2>1. Repository Setup & Git Ignore</h2>
