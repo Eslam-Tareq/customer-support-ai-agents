@@ -369,7 +369,10 @@ export default function App() {
               <span>Active support specialist handling your session</span>
             </div>
           </div>
-          <div className="chat-actions">
+          <div className="chat-actions" style={{ display: 'flex', gap: '0.5rem' }}>
+            <a href="/docs" className="btn-action" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+              📚 Project Docs
+            </a>
             <button className="btn-action" onClick={handleResetSession}>
               Clear History
             </button>
