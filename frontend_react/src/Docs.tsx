@@ -2,7 +2,8 @@ import './Docs.css';
 
 export default function Docs() {
   return (
-    <div className="docs-container">
+    <div className="docs-wrapper">
+      <div className="docs-container">
       {/* Navigation link to go back to the chat dashboard */}
       <a href="/" className="docs-back-link">
         ← Back to Support Chat Dashboard
@@ -294,5 +295,6 @@ npm run dev`}
         <p>Open <code>http://localhost:5173</code> in your browser to interact with the project.</p>
       </section>
     </div>
+  </div>
   );
 }
